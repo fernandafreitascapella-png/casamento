@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel da Noiva · Fe & Gu</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #faf7f2;
+  --warm: #f0ebe0;
+  --sand: #e0d5c4;
+  --bark: #9c8b72;
+  --earth: #5c4f3a;
+  --dark: #2a221a;
+  --green: #5a6e52;
+  --green-light: #eef2ec;
+  --rose: #b87d7d;
+  --rose-light: #f7efef;
+  --ink: #3d3530;
+  --muted: #9a8f85;
+  --border: #ddd5c6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--dark);
+  min-height: 100vh;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  border-bottom: 0.5px solid var(--border);
+  background: var(--warm);
+}
+.hero-mono {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--bark);
+  margin-bottom: 10px;
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--earth);
+  line-height: 1.1;
+}
+.hero-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+  letter-spacing: .5px;
+}
+
+/* COUNTDOWN */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 1.5rem auto;
+}
+.cd-box {
+  background: var(--cream);
+  border: 0.5px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 18px;
+  text-align: center;
+  min-width: 70px;
+}
+.cd-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--earth);
+  line-height: 1;
+}
+.cd-lbl {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--bark);
+  margin-top: 4px;
+}
+
+/* UMBANDA countdown */
+.cd-umbanda {
+  font-size: 11px;
+  color: var(--green);
+  margin-top: .5rem;
+  letter-spacing: .3px;
+}
+
+/* TABS */
+.tabs-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 0.5px solid var(--border);
+  margin: 1.5rem 0 0;
+  overflow-x: auto;
+}
+.tab {
+  padding: 10px 16px;
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: .3px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--muted);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+}
+.tab.active { color: var(--earth); border-bottom: 2px solid var(--earth); font-weight: 500; }
+.tab:hover { color: var(--ink); }
+
+/* PANELS */
+.panel { display: none; padding: 1.5rem 0; }
+.panel.active { display: block; }
+
+/* PROGRESS */
+.prog-wrap { margin-bottom: 1.2rem; }
+.prog-bar { background: var(--sand); border-radius: 3px; height: 4px; overflow: hidden; }
+.prog-fill { height: 4px; border-radius: 3px; background: var(--earth); transition: width .5s ease; }
+.prog-lbl { font-size: 11px; color: var(--muted); margin-top: 5px; }
+
+/* SECTIONS */
+.sec-title {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--bark);
+  margin: 1.4rem 0 .5rem;
+  padding-bottom: 6px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+/* ITEMS */
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 0.5px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+  transition: background .1s;
+}
+.item:last-child { border-bottom: none; }
+.item:hover { background: var(--warm); margin: 0 -8px; padding-left: 8px; padding-right: 8px; border-radius: 4px; }
+.chk {
+  width: 14px; height: 14px; min-width: 14px;
+  border-radius: 3px;
+  border: 0.5px solid var(--sand);
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 3px;
+  font-size: 8px;
+  transition: all .15s;
+  color: #fff;
+}
+.item.done .chk, .item.pre .chk {
+  background: var(--green);
+  border-color: var(--green);
+}
+.item.done .chk::after, .item.pre .chk::after { content: '✓'; }
+.itxt { font-size: 13px; line-height: 1.45; color: var(--ink); }
+.item.done .itxt, .item.pre .itxt {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+.note {
+  font-size: 10px;
+  color: var(--bark);
+  font-style: italic;
+  display: block;
+  margin-top: 1px;
+}
+
+/* DATES */
+.date-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 12px;
+  background: var(--warm);
+  border-radius: 6px;
+  border: 0.5px solid var(--border);
+  margin: .4rem 0;
+}
+.date-day {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--earth);
+  min-width: 36px;
+  text-align: center;
+  line-height: 1;
+}
+.date-month {
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--bark);
+  text-align: center;
+}
+.date-info { flex: 1; }
+.date-title { font-size: 13px; color: var(--ink); font-weight: 500; }
+.date-time { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.date-card.past { opacity: .45; }
+.date-card.today { border-color: var(--rose); background: var(--rose-light); }
+.date-card.today .date-day { color: var(--rose); }
+.date-card.today .date-month { color: var(--rose); }
+.date-card.umb-day { border-color: var(--green); background: var(--green-light); }
+.date-card.umb-day .date-day { color: var(--green); }
+.date-card.umb-day .date-month { color: var(--green); }
+
+/* MALA */
+.mala-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.5rem; }
+@media(max-width:500px) { .mala-grid { grid-template-columns: 1fr; } }
+
+/* BADGE */
+.badge {
+  display: inline-block;
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 20px;
+  margin-left: 6px;
+  vertical-align: middle;
+  letter-spacing: .3px;
+}
+.badge.msg { background: #e8f0fe; color: #3557b3; }
+.badge.umb { background: var(--green-light); color: var(--green); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Fernanda & Gustavo</h1>
+  <div class="hero-sub">Casa Colonial · Araraquara · 09.05.2026</div>
+  <div class="countdown">
+    <div class="cd-box"><div class="cd-num" id="cd-d">-</div><div class="cd-lbl">dias</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-h">-</div><div class="cd-lbl">horas</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-m">-</div><div class="cd-lbl">min</div></div>
+    <div class="cd-box"><div class="cd-num" id="cd-s">-</div><div class="cd-lbl">seg</div></div>
+  </div>
+  <div class="cd-umbanda" id="cd-umb"></div>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="sw('geral')">📋 Lista geral</button>
+    <button class="tab" onclick="sw('umbanda')">🌿 Umbanda</button>
+    <button class="tab" onclick="sw('vespera')">💍 Casamento</button>
+    <button class="tab" onclick="sw('datas')">📅 Datas fixas</button>
+  </div>
+
+  <!-- GERAL -->
+  <div class="panel active" id="p-geral">
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-fill" id="pg-geral" style="width:0%"></div></div>
+      <div class="prog-lbl" id="pl-geral"></div>
+    </div>
+    <div id="l-geral"></div>
+  </div>
+
+  <!-- UMBANDA -->
+  <div class="panel" id="p-umbanda">
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-fill" id="pg-umbanda" style="width:0%"></div></div>
+      <div class="prog-lbl" id="pl-umbanda"></div>
+    </div>
+    <div id="l-umbanda"></div>
+  </div>
+
+  <!-- VÉSPERA -->
+  <div class="panel" id="p-vespera">
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-fill" id="pg-vespera" style="width:0%"></div></div>
+      <div class="prog-lbl" id="pl-vespera"></div>
+    </div>
+    <div id="l-vespera"></div>
+  </div>
+
+  <!-- DATAS FIXAS -->
+  <div class="panel" id="p-datas">
+    <div id="l-datas"></div>
+  </div>
+</div>
+
+<script>
+const SK = 'fg_painel_v4';
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem(SK) || '{}'); } catch(e) {}
+
+// ── DADOS ─────────────────────────────────────────────────────────────
+const lists = {
+  geral: [
+    { sec: 'Fornecedores — mensagens e alinhamentos', items: [
+      { id:'g0',  t:'Mensagem final para todos os fornecedores confirmando data e horário' },
+      { id:'g1',  t:'Bianca Decorações', badge:'msg' },
+      { id:'g2',  t:'Borelli — extensão de tomada e degustação', badge:'msg' },
+      { id:'g3',  t:'Bruna e Júlio — camarim, luz e cadeira', badge:'msg' },
+      { id:'g4',  t:'Bruna Salles — modelo de entrega e alinhamento', badge:'msg' },
+      { id:'g5',  t:'Btrends — aumento de pessoas, hora extra e gelo', badge:'msg' },
+      { id:'g6',  t:'Casa Colonial', badge:'msg' },
+      { id:'g7',  t:'Cervejaria Cachorro Magro — ajustar volume do chope', badge:'msg' },
+      { id:'g8',  t:'Chico Celebrante', badge:'msg' },
+      { id:'g9',  t:'Dico da Lira — mandar setlist de samba', badge:'msg' },
+      { id:'g10', t:'Dorotéia — horário que ela deixará o bem-casado', badge:'msg' },
+      { id:'g11', t:'Filomena — pedir preview das artes e fotos', badge:'msg' },
+      { id:'g12', t:'Giordano — orçamento do gerador e hora extra', badge:'msg' },
+      { id:'g13', t:'Guerrero Filme — alinhamento geral e horários', badge:'msg' },
+      { id:'g14', t:'Jorge Joia — referências de bolos e forminhas', badge:'msg' },
+      { id:'g15', t:'Maria Dinat — confirmar horário (30/04)', badge:'msg' },
+      { id:'g16', t:'Por onde Flor — confirmar horário de retirada, pessoa terceira retirará (meu pai), pedir preview das lapelas com espada de São Jorge', badge:'msg' },
+      { id:'g17', t:'Stillus — confirmar entrega e horário', badge:'msg' },
+    ]},
+    { sec: 'Fornecedores — pendências', items: [
+      { id:'g18', t:'Visita técnica', pre:true },
+      { id:'g19', t:'Reunião de alinhamento com fornecedores', pre:true },
+      { id:'g20', t:'Reunião com Giordano' },
+      { id:'g21', t:'Fechar gerador de energia' },
+      { id:'g22', t:'Orçar tenda' },
+      { id:'g23', t:'Definir hora extra — Giordano e Vilma' },
+      { id:'g24', t:'Orçar McDonald\'s' },
+      { id:'g24b',t:'Comprar McDonald\'s' },
+      { id:'g25', t:'Falar com meu tio sobre buscar o McDonald\'s' },
+      { id:'g26', t:'Falar com a Vilma sobre o McDonald\'s' },
+    ]},
+    { sec: 'Organização — caixas por item', items: [
+      { id:'g27', t:'Montar as caixas por item (balada, banheiro, etc.)' },
+      { id:'g28', t:'Etiquetar todas as caixas' },
+      { id:'g29', t:'Separar extensões em T para as tomadas' },
+      { id:'g30', t:'Separar descartáveis e itens para o café da manhã' },
+      { id:'g30b',t:'Imprimir e organizar tags dos cardápios de salgados' },
+    ]},
+    { sec: 'Festa — cerimônia e música', items: [
+      { id:'g31', t:'Separar itens e pistas de dança', pre:true },
+      { id:'g32', t:'Definir músicas da cerimônia', pre:true },
+      { id:'g35', t:'Ensaiar — entrada da cerimônia, saída, beijo e entrada da festa' },
+      { id:'g36', t:'Ver vídeos salvos no TikTok para referência' },
+      { id:'g37', t:'Fazer lista do que é imprescindível acontecer' },
+    ]},
+    { sec: 'Umbanda — preparativos gerais', items: [
+      { id:'g38', t:'Mensagem para Maria', pre:true },
+      { id:'g39', t:'Mensagem para Gabi (horários)', pre:true },
+      { id:'g38b',t:'Confirmar horário com a fotógrafa (30/04)' },
+      { id:'g41', t:'Comprar descartáveis (prato, guardanapo, copos)' },
+      { id:'g42', t:'Alugar mesa' },
+      { id:'g43', t:'Remover colante dos copos' },
+      { id:'g44', t:'Comprar refrigerantes' },
+      { id:'g45', t:'Separar utensílios (taças, bebidas, toalha)' },
+      { id:'g46', t:'Confirmar com o Gustavo: gelo e caixa térmica' },
+      { id:'g47', t:'Separar caixa com copos e descartáveis' },
+      { id:'g47b',t:'Imprimir e organizar tags dos cardápios de salgados' },
+    ]},
+    { sec: 'Cuidados pessoais', items: [
+      { id:'g48', t:'Teste de cabelo e make', pre:true },
+      { id:'g49', t:'Ajuste das roupas', pre:true },
+      { id:'g50', t:'Comprar lingerie', pre:true },
+      { id:'g51', t:'Comprar cinta modeladora', pre:true },
+      { id:'g52', t:'Comprar itens de banheiro', pre:true },
+      { id:'g53', t:'Marcar sobrancelha', pre:true },
+      { id:'g54', t:'Botox', pre:true },
+      { id:'g55', t:'Limpeza dental', pre:true },
+    ]},
+    { sec: 'Lembranças e brindes', items: [
+      { id:'g57', t:'Contar as canecas' },
+      { id:'g58', t:'Fazer mais canecas, se necessário' },
+      { id:'g59', t:'Fazer chinelos' },
+      { id:'g59b',t:'Fazer chinelo da Carmen' },
+      { id:'g60', t:'Imprimir cartinhas' },
+      { id:'g61', t:'Colar cartinhas' },
+      { id:'g62', t:'Imprimir e revisar os votos' },
+      { id:'g63', t:'Colar os votos no caderninho' },
+      { id:'g64', t:'Comprar câmeras analógicas e fazer passo a passo de uso' },
+    ]},
+    { sec: 'Organização geral', items: [
+      { id:'g65', t:'Entregar documento do casamento civil para o Chico' },
+      { id:'g66', t:'Cronograma do casamento' },
+      { id:'g67', t:'Documento de recomendações para a Vilma' },
+      { id:'g68', t:'Mapeamento de mesas' },
+    ]},
+    { sec: 'Lua de mel', items: [
+      { id:'g70', t:'Comprar roupas para a lua de mel', pre:true },
+      { id:'g72', t:'Seguro viagem', pre:true },
+      { id:'g73', t:'Comprar remédios para a lua de mel', pre:true },
+      { id:'g74', t:'Imprimir documentos da lua de mel' },
+    ]},
+  ],
+
+  umbanda: [
+    { sec: 'Dias antes', items: [
+      { id:'u1',  t:'Confirmar buquê com Por onde Flor (30/04)' },
+      { id:'u1b', t:'Confirmar horário com a fotógrafa — Maria Dinat (30/04)' },
+      { id:'u2',  t:'Separar itens de cuidados pessoais para ficar na casa dos pais' },
+      { id:'u2b', t:'Imprimir e organizar tags dos cardápios de salgados' },
+    ]},
+    { sec: 'Dia 01/05 — véspera', items: [
+      { id:'u3', t:'Limpar a tenda' },
+      { id:'u4', t:'Pegar costelas-de-adão para decorar' },
+      { id:'u5', t:'Levar utensílios' },
+      { id:'u6', t:'Levar caixa com copos e descartáveis' },
+    ]},
+    { sec: 'Dia 02/05 — casamento religioso 🌿', items: [
+      { id:'u7', t:'Unha — 7h' },
+      { id:'u8', t:'Cabelo e make — 13h30' },
+      { id:'u9', t:'Pegar buquê' },
+    ]},
+  ],
+
+  vespera: [
+    { sec: 'Dias antes', items: [
+      { id:'v1',  t:'Separar itens de noiva para o dia' },
+      { id:'v2',  t:'Montar mala de noiva' },
+      { id:'v3',  t:'Montar malinha para o hotel (pijama + lingerie)' },
+      { id:'v4',  t:'Levar todas as caixas para a Vilma' },
+    ]},
+    { sec: 'Mala de noiva — o que levar', items: [
+      { id:'v5',  t:'Vestido' },
+      { id:'v6',  t:'Lingerie e cinta' },
+      { id:'v7',  t:'Sapatos' },
+      { id:'v8',  t:'Acessórios (brincos, colar, etc.)' },
+      { id:'v9',  t:'Maquiagem de retoque' },
+      { id:'v10', t:'Perfume' },
+      { id:'v11', t:'Pijama e necessaire para o hotel' },
+      { id:'v12', t:'Remédios de bolsa' },
+      { id:'v13', t:'Carregador do celular' },
+    ]},
+    { sec: 'Dia 08/05 — véspera 🌙', items: [
+      { id:'v14', t:'Fazer unha' },
+      { id:'v15', t:'Pegar o vestido' },
+      { id:'v4b', t:'Confirmar buquê com Por onde Flor' },
+      { id:'v16', t:'Montar o backdrop' },
+      { id:'v17', t:'Conferir tudo que vai para o local' },
+    ]},
+    { sec: 'Dia 09/05 — manhã do casamento', items: [
+      { id:'v18', t:'Lavar o cabelo' },
+    ]},
+  ],
+};
+
+const datas = [
+  { d:'23', m:'ABR', title:'Retorno botox', time:'17h', iso:'2026-04-23T17:00' },
+  { d:'29', m:'ABR', title:'Sobrancelha', time:'17h30', iso:'2026-04-29T17:30' },
+  { d:'02', m:'MAI', title:'Unha', time:'7h', iso:'2026-05-02T07:00' },
+  { d:'02', m:'MAI', title:'Cabelo e make', time:'13h30', iso:'2026-05-02T13:30' },
+  { d:'02', m:'MAI', title:'🌿 Casamento religioso – Umbanda', time:'cerimônia', iso:'2026-05-02T18:00', highlight2:true },
+  { d:'06', m:'MAI', title:'Terapia', time:'13h', iso:'2026-05-06T13:00' },
+  { d:'08', m:'MAI', title:'Unha (véspera)', time:'manhã', iso:'2026-05-08T09:00' },
+  { d:'09', m:'MAI', title:'💍 Casamento', time:'15h — Casa Colonial', iso:'2026-05-09T15:00', highlight:true },
+];
+
+// ── RENDER ─────────────────────────────────────────────────────────────
+function buildList(containerId, sections, progId, lblId) {
+  const wrap = document.getElementById(containerId);
+  let total = 0, done = 0;
+  let html = '';
+  sections.forEach(sec => {
+    html += `<div class="sec-title">${sec.sec}</div>`;
+    sec.items.forEach(it => {
+      const isDone = saved[it.id] === true;
+      const isPre = it.pre && !saved.hasOwnProperty(it.id);
+      const cls = isDone ? 'done' : (isPre ? 'pre' : '');
+      const badge = it.badge ? `<span class="badge ${it.badge}">${it.badge==='msg'?'mensagem':it.badge}</span>` : '';
+      const note = it.note ? `<span class="note">${it.note}</span>` : '';
+      html += `<div class="item ${cls}" onclick="toggle('${it.id}',this)" data-pre="${it.pre?'1':'0'}">
+        <div class="chk"></div>
+        <div class="itxt">${it.t}${badge}${note}</div>
+      </div>`;
+      total++;
+      if (isDone || isPre) done++;
+    });
+  });
+  wrap.innerHTML = html;
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById(progId).style.width = pct + '%';
+  document.getElementById(lblId).textContent = `${done} de ${total} concluídos (${pct}%)`;
+}
+
+function toggle(id, el) {
+  const isPre = el.dataset.pre === '1' && !saved.hasOwnProperty(id);
+  if (isPre) {
+    // pre-done: primeiro clique desmarca
+    saved[id] = false;
+    el.classList.remove('pre');
+  } else {
+    saved[id] = !saved[id];
+    el.classList.toggle('done', saved[id]);
+  }
+  persist();
+  rebuildAll();
+}
+
+function persist() {
+  try { localStorage.setItem(SK, JSON.stringify(saved)); } catch(e) {}
+}
+
+function rebuildAll() {
+  buildList('l-geral',   lists.geral,   'pg-geral',   'pl-geral');
+  buildList('l-umbanda', lists.umbanda, 'pg-umbanda', 'pl-umbanda');
+  buildList('l-vespera', lists.vespera, 'pg-vespera', 'pl-vespera');
+}
+
+// DATAS
+function buildDates() {
+  const now = new Date();
+  const today = now.toISOString().slice(0,10);
+  let html = '<div class="sec-title">Compromissos & marcos</div>';
+  datas.forEach(d => {
+    const dt = new Date(d.iso);
+    const past = dt < now;
+    const isToday = d.iso.slice(0,10) === today;
+    const cls = d.highlight ? 'date-card today' : d.highlight2 ? 'date-card umb-day' : past ? 'date-card past' : 'date-card';
+    html += `<div class="${cls}">
+      <div><div class="date-day">${d.d}</div><div class="date-month">${d.m}</div></div>
+      <div class="date-info">
+        <div class="date-title">${d.title}</div>
+        <div class="date-time">${d.time}</div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('l-datas').innerHTML = html;
+}
+
+// TABS
+function sw(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('p-' + tab).classList.add('active');
+}
+
+// COUNTDOWN
+function updateCd() {
+  const target = new Date('2026-05-09T15:00:00');
+  const umb    = new Date('2026-05-02T13:30:00');
+  const now    = new Date();
+  const diff   = target - now;
+  const diffU  = umb - now;
+  if (diff > 0) {
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-d').textContent = d;
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  const uel = document.getElementById('cd-umb');
+  if (diffU > 0) {
+    const du = Math.floor(diffU / 86400000);
+    uel.textContent = `🌿 Umbanda em ${du} dia${du!==1?'s':''}`;
+  } else {
+    uel.textContent = '';
+  }
+}
+
+// INIT
+rebuildAll();
+buildDates();
+updateCd();
+setInterval(updateCd, 1000);
+</script>
+</body>
+</html>
